@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="style.css">
+    <title>Rich Text Link Checker</title>
+    <script type="module" src="main.js"></script>
+  </head>
+  <body class="is-flex is-flex-direction-column is-align-content-center">
+    <h1 class="title">Rich Text Link Checker</h1>
+    <section class="section">
+      <h2 class="subtitle">Configure Your Scan</h2>
+      <div class="container is-fluid p-4" id="config">
+        <form action="" id="input">
+          <div class="field">
+            <label class="label" for="environment-id">Environment ID:</label>
+            <input
+              class="input"
+              type="text"
+              name="environment-id"
+              placeholder="Environment ID (required)"
+            />
+          </div>
+          <div class="field">
+            <label class="label" for="language">Language Codename:</label>
+            <input
+              class="input"
+              type="text"
+              name="language"
+              placeholder="Language Codename (optional)"
+            />
+          </div>
+          <div class="field">
+            <label class="label" for="preview-key">Preview API Key:</label>
+            <input
+              class="input"
+              type="text"
+              name="preview-key"
+              placeholder="Preview API Key (optional)"
+            />
+          </div>
+          <input
+            class="button is-primary"
+            type="submit"
+            id="submit"
+            value="Find My Links!"
+          />
+        </form>
+      </div>
+    </section>
+    <div><table id="results"></table></div>
+  </body>
+</html>
