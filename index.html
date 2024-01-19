@@ -7,7 +7,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <title>Rich Text Link Checker</title>
     <script type="module" src="main.js"></script>
   </head>
@@ -16,7 +16,7 @@
     <section class="section">
       <h2 class="subtitle">Configure Your Scan</h2>
       <div class="container is-fluid p-4" id="config">
-        <form action="" id="input">
+        <form action="submit" id="params">
           <div class="field">
             <label class="label" for="environment-id">Environment ID:</label>
             <input
@@ -24,6 +24,7 @@
               type="text"
               name="environment-id"
               placeholder="Environment ID (required)"
+              id="envID"
             />
           </div>
           <div class="field">
@@ -33,6 +34,7 @@
               type="text"
               name="language"
               placeholder="Language Codename (optional)"
+              id="lang"
             />
           </div>
           <div class="field">
@@ -42,11 +44,13 @@
               type="text"
               name="preview-key"
               placeholder="Preview API Key (optional)"
+              id="key"
             />
           </div>
           <input
             class="button is-primary"
-            type="submit"
+            type="button"
+            form="params"
             id="submit"
             value="Find My Links!"
           />
