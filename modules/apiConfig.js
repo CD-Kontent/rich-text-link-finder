@@ -11,11 +11,11 @@ function getParams() {
   return [envID, lang, previewKey];
 }
 
-async function callAPI(endpoint, requestMethod, headers) {
+async function callAPI(endpoint, previewKey) {
   try {
     const res = await fetch(endpoint, {
-      method: `${requestMethod}`,
-      headers: headers,
+      method: "GET",
+      headers: {"Authorization": `Bearer ${previewKey}`},
     });
     // Since many errors will still count as a "success" for fetch(), they must be
     // handled here - they won't trigger the catch() block
@@ -32,9 +32,11 @@ async function callAPI(endpoint, requestMethod, headers) {
   }
 }
 
-export default function showParams() {
+function showParams() {
   const [envID, lang, previewKey] = getParams();
   console.log(envID);
   console.log(lang);
   console.log(previewKey);
 }
+
+export {getParams, showParams, callAPI}
