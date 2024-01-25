@@ -11,11 +11,21 @@ function getParams() {
   return [envID, lang, previewKey];
 }
 
+function setURL(envID, lang, previewKey) {
+  const baseURL = previewKey
+    ? `https://preview-deliver.kontent.ai/${envID}`
+    : `https://deliver.kontent.ai/${envID}`;
+  const langModifier = `&system.language=${lang}`;
+  return [baseURL, langModifier];
+}
+
 async function callAPI(endpoint, previewKey) {
   try {
+    // Sending an 'undefined' Bearer token is fine if the API doesn't require a
+    // key.
     const res = await fetch(endpoint, {
       method: "GET",
-      headers: {"Authorization": `Bearer ${previewKey}`},
+      headers: { Authorization: `Bearer ${previewKey}` },
     });
     // Since many errors will still count as a "success" for fetch(), they must be
     // handled here - they won't trigger the catch() block
@@ -32,11 +42,4 @@ async function callAPI(endpoint, previewKey) {
   }
 }
 
-function showParams() {
-  const [envID, lang, previewKey] = getParams();
-  console.log(envID);
-  console.log(lang);
-  console.log(previewKey);
-}
-
-export {getParams, showParams, callAPI}
+export { getParams, setURL, callAPI };

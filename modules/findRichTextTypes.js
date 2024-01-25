@@ -1,15 +1,18 @@
 import { callAPI } from "./apiConfig.js";
 
-async function getTypes(baseURL) {
+async function getTypes(baseURL, previewKey) {
   const retrievedTypes = [];
   let isNextPage = true;
 
   try {
-    // to handle the potential of more Content Types than will fit in a
+    // To handle the potential of more Content Types than will fit in a
     // single API response, the function makes use of Kontent.ai API's
     // built-in "pagination" response property
     while (isNextPage) {
-      let response = await callAPI(`${baseURL}/types?limit=2000&skip=0`, "GET");
+      let response = await callAPI(
+        `${baseURL}/types?limit=2000&skip=0`,
+        previewKey
+      );
       retrievedTypes.push(response.types);
       if (response.pagination.next_page == "") {
         isNextPage = false;
@@ -17,6 +20,7 @@ async function getTypes(baseURL) {
         endpoint = response.pagination.next_page;
       }
     }
+    console.log(retrievedTypes.flat());
     return retrievedTypes.flat();
   } catch (error) {
     // log error to console for debugging purposes
@@ -56,10 +60,16 @@ async function findRichTextTypes(types) {
   }
 }
 
-export async function checkTypes(baseURL) {
+async function checkTypes(baseURL, previewKey) {
   try {
-    const typesInProject = await getTypes(baseURL);
+    const typesInProject = await getTypes(baseURL, previewKey);
     const contentTypesWithRichText = await findRichTextTypes(typesInProject);
+    if (!contentTypesWithRichText) {
+      console.log(typeof contentTypesWithRichText);
+      throw new Error(
+        "No Content Types with Rich Text Elements detected in this environment."
+      );
+    }
     return contentTypesWithRichText;
   } catch (error) {
     // log error to console for debugging purposes
@@ -68,3 +78,5 @@ export async function checkTypes(baseURL) {
     throw new Error(error.message);
   }
 }
+
+export { checkTypes };
