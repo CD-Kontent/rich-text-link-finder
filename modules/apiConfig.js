@@ -11,19 +11,19 @@ function getParams() {
   return [envID, lang, previewKey];
 }
 
-function setURL(envID, lang, previewKey) {
+function setURL(envID, previewKey, lang) {
   const baseURL = previewKey
     ? `https://preview-deliver.kontent.ai/${envID}`
     : `https://deliver.kontent.ai/${envID}`;
-  const langModifier = `&system.language=${lang}`;
+  const langModifier = lang ? `&language=${lang}` : null;
   return [baseURL, langModifier];
 }
 
-async function callAPI(endpoint, previewKey) {
+async function callAPI(query, previewKey) {
   try {
     // Sending an 'undefined' Bearer token is fine if the API doesn't require a
     // key.
-    const res = await fetch(endpoint, {
+    const res = await fetch(query, {
       method: "GET",
       headers: { Authorization: `Bearer ${previewKey}` },
     });
