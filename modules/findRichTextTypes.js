@@ -6,7 +6,7 @@ async function getTypes(baseURL, previewKey) {
 
   try {
     // To handle the potential of more Content Types than will fit in a
-    // single API response, the function makes use of Kontent.ai API's
+    // single API response, this function makes use of Kontent.ai API's
     // built-in "pagination" response property
     while (isNextPage) {
       let response = await callAPI(
@@ -20,15 +20,9 @@ async function getTypes(baseURL, previewKey) {
         endpoint = response.pagination.next_page;
       }
     }
-    console.log(retrievedTypes.flat());
     return retrievedTypes.flat();
   } catch (error) {
-    // log error to console for debugging purposes
-    console.error(error);
-    // throw error to be handled by initiating function
-    throw new Error(
-      `Error occured retrieving your content types: "${error.message}"`
-    );
+    throw new Error(error.message);
   }
 }
 
@@ -40,7 +34,8 @@ async function findRichTextTypes(types) {
         // their elements that meet the criteria (contd)
         return Object.values(type.elements).some((element) => {
           // of having rich text type. The extra 'return' here stops the search after the
-          // rich text element is found - we only need to know if it has ANY, not how many
+          // rich text element is found - we only need to know if it has ANY, not find
+          // each rich text element
           return element.type === "rich_text";
         });
       })
@@ -51,9 +46,7 @@ async function findRichTextTypes(types) {
     // Return this new array, converted to a string (to be easily included in API call)
     return richTextTypes.toString();
   } catch (error) {
-    // log error to console for debugging purposes
     console.error(error);
-    // throw error to be handled by initiating function
     throw new Error(
       `Error occurred searching your content types: ${error.message}`
     );
@@ -64,17 +57,8 @@ async function checkTypes(baseURL, previewKey) {
   try {
     const typesInProject = await getTypes(baseURL, previewKey);
     const contentTypesWithRichText = await findRichTextTypes(typesInProject);
-    if (!contentTypesWithRichText) {
-      console.log(typeof contentTypesWithRichText);
-      throw new Error(
-        "No Content Types with Rich Text Elements detected in this environment."
-      );
-    }
     return contentTypesWithRichText;
   } catch (error) {
-    // log error to console for debugging purposes
-    console.error(error);
-    // throw error to be handled by initiating function
     throw new Error(error.message);
   }
 }

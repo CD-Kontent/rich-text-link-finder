@@ -10,9 +10,16 @@
     <link rel="stylesheet" href="style.css" />
     <title>Rich Text Link Checker</title>
     <script type="module" src="main.js"></script>
+    <link
+      href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"
+    ></script>
   </head>
-  <body class="is-flex is-flex-direction-column is-align-content-center">
-    <h1 class="title">Rich Text Link Checker</h1>
+  <body>
     <section class="section">
       <h2 class="subtitle">Configure Your Scan</h2>
       <div class="container is-fluid p-4" id="config">
@@ -41,7 +48,7 @@
             <label class="label" for="preview-key">Preview API Key:</label>
             <input
               class="input"
-              type="text"
+              type="password"
               name="preview-key"
               placeholder="Preview API Key (optional)"
               id="key"
@@ -56,7 +63,19 @@
           />
         </form>
       </div>
+      <div class="container is-fluid p-4" id="download" hidden>
+        <button class="button is-primary">Download CSV</button>
+      </div>
     </section>
-    <div><table id="results"></table></div>
+    <section class="section">
+      <div class="container is-fluid" id="progress" hidden>
+        <progress class="progress is-small is-primary is-fluid" max="100">
+          15%
+        </progress>
+      </div>
+      <div class="notification has-background-white" id="message"></div>
+
+      <div class="table" id="results"></div>
+    </section>
   </body>
 </html>
