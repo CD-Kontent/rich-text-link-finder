@@ -6,8 +6,6 @@ function getParams() {
   const previewKey = document.getElementById("key").value
     ? document.getElementById("key").value
     : null;
-
-  console.log([envID, lang, previewKey]);
   return [envID, lang, previewKey];
 }
 

@@ -25,13 +25,13 @@ function assembleResult(linkObject, urlStatus) {
 
 async function checkURL(url) {
   try {
-    const res = await fetch("http://localhost:3000/ping", {
+    const res = await fetch("https://kontentapp.azurewebsites.net/extra/ping.php", {
       method: "POST",
       mode: "cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url }),
+      // headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: url }),
     });
-    
+
     if (!res.ok) {
       throw new Error(
         `Unexpected error occured communicating with server. Status code: ${res.status}`

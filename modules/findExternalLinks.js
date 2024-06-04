@@ -38,6 +38,7 @@ async function findExternalLinks(contentItem) {
     // Finally, return the results of scanning this Content Item
     return data.flat();
   } catch (error) {
+    console.error(error)
     throw new Error(error.message);
   }
 }
