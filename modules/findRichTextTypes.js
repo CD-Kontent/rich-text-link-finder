@@ -9,15 +9,13 @@ async function getTypes(baseURL, previewKey) {
     // single API response, this function makes use of Kontent.ai API's
     // built-in "pagination" response property
     while (isNextPage) {
-      let response = await callAPI(
-        `${baseURL}/types?limit=2000&skip=0`,
-        previewKey
-      );
+      let query = `${baseURL}/types?limit=2000&skip=0`;
+      let response = await callAPI(query, previewKey);
       retrievedTypes.push(response.types);
       if (response.pagination.next_page == "") {
         isNextPage = false;
       } else {
-        endpoint = response.pagination.next_page;
+        query = response.pagination.next_page;
       }
     }
     return retrievedTypes.flat();
