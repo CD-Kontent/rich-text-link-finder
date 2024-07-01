@@ -36,6 +36,13 @@ Please report any issues through GitHub.
 
 ## Usage
 
+Deploy your own instance of the tool.
+If you have a Netlify account linked to your GitHub account, this can be done with one click - thanks Netlify!
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/CD-Kontent/rich-text-link-finder)
+
+Otherwise, this will need to be done manually.
+
 Supply an Environment ID (required), Preview API Key (optional), and Language Codename (optional).
 Alternatively, for larger or more regular usage, please use the codebase as inspiration for your own hosted solution.
 
